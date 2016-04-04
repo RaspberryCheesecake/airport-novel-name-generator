@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Airport Novel Generator</title>
+    <LINK REL=StyleSheet HREF="style.css" TYPE="text/css" MEDIA=screen>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <meta charset="UTF-8"> 
+  </head>
+  
+  <!--the big circle in middle -->
+  <div class="menu" id="circle">
+    <div id="message_field"></div>
+  </div>
+
+  <!--Javascript for getting text in circle and changing colour-->
+  <script type="text/javascript">
+    
+    //initialise text in circle
+    var mfield = document.getElementById("message_field");
+    var text = ""
+    $.get("/airport_novels", {}, function(data) 
+    {
+	    console.log('data is ' + data);
+	    text = data;
+	    mfield.innerHTML = text;
+    });
+
+    /* initial circle background colours */
+    var old_col = ['#33CCCC','#FFFFFF']
+
+    // get new message on each click
+    $("#circle").click(function() 
+        {
+        console.log('click');
+        var text = "";
+        $.get("/airport_novels", {}, function(data) 
+        {
+            console.log('data is ' + data);
+            text = data;
+            mfield.innerHTML = text;
+        });
+
+
+
+    // change circle colours each click
+   // {
+        /*colours to use for circle background*/    	
+        var col_pairs = [['#3366FF', '#00FF99'],
+			['#99CCFF', '#9999FF'],
+		  	['#FF9966', '#FFFF99'],
+			['#FF99FF', '#FFFF00'],
+			['#66FF99', '#33CCCC'],
+			['#FF99FF', '#FF9966'],
+			['#00CC99', '#FFFF66'],
+            ['#66CCFF', '#FF99FF'],
+            ['#FFCCFF', '#CC66FF'],
+            ['#FF6600', '#FFCC99'],
+            ['#FF6666', '#CC99FF'],
+            ['#33CCCC', '#FFFFFF'],
+            ['#33CCCC', '#FFFF99'],
+            ['#0066FF', '#00CCFF']];
+
+        /* randomly pick a pair of colours */
+	    var new_col = col_pairs[Math.floor(Math.random()*col_pairs.length)];
+
+        /* make sure the same colour pair never happens twice in a row */
+        while (new_col[0] == old_col[0]) 
+        {
+		    new_col = col_pairs[Math.floor(Math.random()*col_pairs.length)];
+        }
+        console.log(new_col)
+        /* update previous colour */
+	    old_col = new_col;
+
+	    $("#circle").css({"background"
+		    :"radial-gradient(" + new_col[0] + "," + new_col[1] + ")"
+	    });
+    });
+  </script>
+
+  <div id="header">
+    <div id="header-content">
+      <h1 class=>Airport Novel Generator</h1>
+      <p class="alignleft">Click to generate the title of a thriller novel...</p>
+      <p class="alignright"><font size = 2><a href="http://mcla.ug"
+          target="_blank">by Hannah Wray (with thanks to Hannah McLaughlin's self-ca.re)</a></font> </p>
+    </div>
+  </div>
+</html>
