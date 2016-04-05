@@ -1,5 +1,5 @@
 body{
-    font-family: AppleGothic, "Century Gothic", Muli, "Avant Garde", sans-serif;
+    font-family: Copperplate Gothic Light, sans-serif;
 	background-image: url("at_last.jpg");
     background-size: cover;
     background-position: center;
@@ -42,9 +42,9 @@ a:hover, a:visited, a:link, a:active{
 .menu{
     display:block;
     width:400px;
-    height:400px;
+    height:600px;
     /*border: 8px solid #FFFFFF;*/
-    border-radius:50%;
+    border-radius:0%;
     /*font-size:40px;
     color:#fff;
     line-height:400px;
